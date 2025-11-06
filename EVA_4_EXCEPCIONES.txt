@@ -1,0 +1,176 @@
+Microsoft Windows [Versión 10.0.26200.6899]
+(c) Microsoft Corporation. Todos los derechos reservados.
+
+C:\Users\raulr>mysqlsh
+MySQL Shell 8.0.42
+
+Copyright (c) 2016, 2025, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 17
+Server version: 8.0.42 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use tbd3;
+Default schema set to `tbd3`.
+Fetching global names, object names from `tbd3` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd3  SQL > call agregar_actor2("Juan","Perez");
+ERROR: 1318 (42000): Incorrect number of arguments for PROCEDURE tbd3.agregar_actor2; expected 3, got 2
+ MySQL  localhost:3306 ssl  tbd3  SQL > call agregar_actor2("Juan","Perez");
+Query OK, 1 row affected (0.0100 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > create table personas(rfc varchar(10) not null key, nombre varchar(50) not null, ap_paterno varchar(50) not null,)
+                                     -> ap_materno varchar(50), fecha_nac date);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+ap_materno varchar(50), fecha_nac date)' at line 1
+ MySQL  localhost:3306 ssl  tbd3  SQL > create table personas(rfc varchar(10) not null key, nombre varchar(50) not null, ap_paterno varchar(50) not null, ap_materno varchar(50), fecha_nac date);
+Query OK, 0 rows affected (0.0569 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > desc personas;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rfc        | varchar(10) | NO   | PRI | NULL    |       |
+| nombre     | varchar(50) | NO   |     | NULL    |       |
+| ap_paterno | varchar(50) | NO   |     | NULL    |       |
+| ap_materno | varchar(50) | YES  |     | NULL    |       |
+| fecha_nac  | date        | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.0280 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > select generar_rfc();
+ERROR: 1054 (42S22): Unknown column 'Rivas' in 'field list'
+ MySQL  localhost:3306 ssl  tbd3  SQL > select generar_rfc();
++---------------+
+| generar_rfc() |
++---------------+
+| Ri            |
++---------------+
+1 row in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL >
+
+
+Fetching global names, object names from `tbd3` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd3  SQL > call agregar_persoans("luis","rivas","sanchez","2003-12-29");
+ERROR: 1305 (42000): PROCEDURE tbd3.agregar_persoans does not exist
+ MySQL  localhost:3306 ssl  tbd3  SQL > call agregar_personas("luis","rivas","sanchez","2003-12-29");
+ERROR: 1318 (42000): Incorrect number of arguments for FUNCTION tbd3.generar_rfc; expected 4, got 0
+ MySQL  localhost:3306 ssl  tbd3  SQL > call agregar_personas("luis","rivas","sanchez","2003-12-29");
+ERROR: 1406 (22001): Data too long for column 'funcion' at row 1
+ MySQL  localhost:3306 ssl  tbd3  SQL > call agregar_personas("luis","rivas","sanchez","2003-12-29");
+ERROR: 1265 (01000): Data truncated for column 'rfc' at row 1
+ MySQL  localhost:3306 ssl  tbd3  SQL > call agregar_personas("luis","rivas","sanchez","2003-12-29");
+ERROR: 1265 (01000): Data truncated for column 'rfc' at row 1
+ MySQL  localhost:3306 ssl  tbd3  SQL > desc personas;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rfc        | varchar(10) | NO   | PRI | NULL    |       |
+| nombre     | varchar(50) | NO   |     | NULL    |       |
+| ap_paterno | varchar(50) | NO   |     | NULL    |       |
+| ap_materno | varchar(50) | YES  |     | NULL    |       |
+| fecha_nac  | date        | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.0022 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > call agregar_personas("luis","rivas","sanchez","2003-12-29");
+ERROR: 1265 (01000): Data truncated for column 'rfc' at row 1
+ MySQL  localhost:3306 ssl  tbd3  SQL > call agregar_personas("luis","rivas","sanchez","2003-12-29");
+ERROR: 1292 (22007): Incorrect datetime value: '03'
+ MySQL  localhost:3306 ssl  tbd3  SQL > call agregar_personas("luis","rivas","sanchez","2003-12-29");
+Query OK, 1 row affected (0.0050 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > select * from personas;
++------------+--------+------------+------------+------------+
+| rfc        | nombre | ap_paterno | ap_materno | fecha_nac  |
++------------+--------+------------+------------+------------+
+| risl031229 | luis   | rivas      | sanchez    | 2003-12-29 |
++------------+--------+------------+------------+------------+
+1 row in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > select * from personas;
++------------+--------+------------+------------+------------+
+| rfc        | nombre | ap_paterno | ap_materno | fecha_nac  |
++------------+--------+------------+------------+------------+
+| risl031229 | luis   | rivas      | sanchez    | 2003-12-29 |
++------------+--------+------------+------------+------------+
+1 row in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > call agregar_personas("pepe","perez","sanchez","2002-12-29");
+Query OK, 1 row affected (0.0275 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > select * from personas;
++------------+--------+------------+------------+------------+
+| rfc        | nombre | ap_paterno | ap_materno | fecha_nac  |
++------------+--------+------------+------------+------------+
+| pesp021229 | pepe   | perez      | sanchez    | 2002-12-29 |
+| risl031229 | luis   | rivas      | sanchez    | 2003-12-29 |
++------------+--------+------------+------------+------------+
+2 rows in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL >
+
+Microsoft Windows [Versión 10.0.26200.6899]
+(c) Microsoft Corporation. Todos los derechos reservados.
+
+C:\Users\raulr>mysqlsh
+MySQL Shell 8.0.42
+
+Copyright (c) 2016, 2025, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhsot
+Creating a Classic session to 'root@localhsot'
+Please provide the password for 'root@localhsot': *
+MySQL Error 2005 (HY000): Unknown MySQL server host 'localhsot' (11001)
+ MySQL  SQL > ;
+ERROR: Not connected.
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 14
+Server version: 8.0.42 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > call agregar_personas("pedro","sanchez","rodriguez","1998-12-12");
+ERROR: 1046 (3D000): No database selected
+ MySQL  localhost:3306 ssl  SQL > use tbd3;
+Default schema set to `tbd3`.
+Fetching global names, object names from `tbd3` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd3  SQL > call agregar_personas("pedro","sanchez","rodriguez","1998-12-12");
+Query OK, 1 row affected (0.0047 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > select * from personas;
++------------+--------+------------+------------+------------+
+| rfc        | nombre | ap_paterno | ap_materno | fecha_nac  |
++------------+--------+------------+------------+------------+
+| pesp021229 | pepe   | perez      | sanchez    | 2002-12-29 |
+| risl031229 | luis   | rivas      | sanchez    | 2003-12-29 |
+| sarp981212 | pedro  | sanchez    | rodriguez  | 1998-12-12 |
++------------+--------+------------+------------+------------+
+3 rows in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > call agregar_personas("adrian","gonzalez","hernandez","1995-01-06");
+Query OK, 1 row affected (0.0040 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > select * from personas;
++------------+--------+------------+------------+------------+
+| rfc        | nombre | ap_paterno | ap_materno | fecha_nac  |
++------------+--------+------------+------------+------------+
+| goha9516   | adrian | gonzalez   | hernandez  | 1995-01-06 |
+| pesp021229 | pepe   | perez      | sanchez    | 2002-12-29 |
+| risl031229 | luis   | rivas      | sanchez    | 2003-12-29 |
+| sarp981212 | pedro  | sanchez    | rodriguez  | 1998-12-12 |
++------------+--------+------------+------------+------------+
+4 rows in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > call agregar_personas("pepe","gonzalez","hernandez","1995-01-06");
+Query OK, 1 row affected (0.0049 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > select * from personas;
++------------+--------+------------+------------+------------+
+| rfc        | nombre | ap_paterno | ap_materno | fecha_nac  |
++------------+--------+------------+------------+------------+
+| goha9516   | adrian | gonzalez   | hernandez  | 1995-01-06 |
+| gohp950106 | pepe   | gonzalez   | hernandez  | 1995-01-06 |
+| pesp021229 | pepe   | perez      | sanchez    | 2002-12-29 |
+| risl031229 | luis   | rivas      | sanchez    | 2003-12-29 |
+| sarp981212 | pedro  | sanchez    | rodriguez  | 1998-12-12 |
++------------+--------+------------+------------+------------+
+5 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL >
