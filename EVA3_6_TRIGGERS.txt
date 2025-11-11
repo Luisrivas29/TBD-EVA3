@@ -1,0 +1,164 @@
+Microsoft Windows [Versión 10.0.26200.6899]
+(c) Microsoft Corporation. Todos los derechos reservados.
+
+C:\Users\raulr>mysqlsh
+MySQL Shell 8.0.42
+
+Copyright (c) 2016, 2025, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 31
+Server version: 8.0.42 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use tbd3;
+Default schema set to `tbd3`.
+Fetching global names, object names from `tbd3` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd3  SQL > desc personas;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rfc        | varchar(10) | NO   | PRI | NULL    |       |
+| nombre     | varchar(50) | NO   |     | NULL    |       |
+| ap_paterno | varchar(50) | NO   |     | NULL    |       |
+| ap_materno | varchar(50) | YES  |     | NULL    |       |
+| fecha_nac  | date        | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > select * from personas;
++------------+--------+------------+------------+------------+
+| rfc        | nombre | ap_paterno | ap_materno | fecha_nac  |
++------------+--------+------------+------------+------------+
+| goha9516   | adrian | gonzalez   | hernandez  | 1995-01-06 |
+| gohp950106 | pepe   | gonzalez   | hernandez  | 1995-01-06 |
+| pesp021229 | pepe   | perez      | sanchez    | 2002-12-29 |
+| risl031229 | luis   | rivas      | sanchez    | 2003-12-29 |
+| sarp981212 | pedro  | sanchez    | rodriguez  | 1998-12-12 |
++------------+--------+------------+------------+------------+
+5 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > insert into personas value("dfgdf32","luis","rivas","2003-12-29");
+ERROR: 1136 (21S01): Column count doesn't match value count at row 1
+ MySQL  localhost:3306 ssl  tbd3  SQL > insert into personas value("dfgdf32","luis","rivas","2003-29-12");
+ERROR: 1136 (21S01): Column count doesn't match value count at row 1
+ MySQL  localhost:3306 ssl  tbd3  SQL > insert into personas value("32","luis","rivas","2003-12-29");
+ERROR: 1136 (21S01): Column count doesn't match value count at row 1
+ MySQL  localhost:3306 ssl  tbd3  SQL > insert into personas value("32","luis","rivas","sanchez","2003-12-29");
+Query OK, 1 row affected (0.0089 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > select @mensaje;
++----------+
+| @mensaje |
++----------+
+| NULL     |
++----------+
+1 row in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > insert into personas value("32","luis","rivas","sanchez","2003-12-29");
+ERROR: 1062 (23000): Duplicate entry '32' for key 'personas.PRIMARY'
+ MySQL  localhost:3306 ssl  tbd3  SQL > insert into personas value("dfgdfgdf","luis","rivas","sanchez","2003-12-29");
+Query OK, 1 row affected (0.0051 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > select @mensaje;
++----------------------------+
+| @mensaje                   |
++----------------------------+
+| Persona agregada con exito |
++----------------------------+
+1 row in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > create table bitacora (descripcion varchar(50));
+Query OK, 0 rows affected (0.0282 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > select * from personas;
++------------+--------+------------+------------+------------+
+| rfc        | nombre | ap_paterno | ap_materno | fecha_nac  |
++------------+--------+------------+------------+------------+
+| 32         | luis   | rivas      | sanchez    | 2003-12-29 |
+| dfgdfgdf   | luis   | rivas      | sanchez    | 2003-12-29 |
+| goha9516   | adrian | gonzalez   | hernandez  | 1995-01-06 |
+| gohp950106 | pepe   | gonzalez   | hernandez  | 1995-01-06 |
+| pesp021229 | pepe   | perez      | sanchez    | 2002-12-29 |
+| risl031229 | luis   | rivas      | sanchez    | 2003-12-29 |
+| sarp981212 | pedro  | sanchez    | rodriguez  | 1998-12-12 |
++------------+--------+------------+------------+------------+
+7 rows in set (0.0011 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > delete from personas where rfc = "32";
+Query OK, 1 row affected (0.0051 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > select * from bitacora;
++--------------------+
+| descripcion        |
++--------------------+
+| Borrado de persona |
++--------------------+
+1 row in set (0.0004 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > delete from personas where rfc = "goha9516";
+Query OK, 1 row affected (0.0060 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > select * from bitacora;
++--------------------+
+| descripcion        |
++--------------------+
+| Borrado de persona |
+| Borrado: goha9516  |
++--------------------+
+2 rows in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > desc persona;
+ERROR: 1146 (42S02): Table 'tbd3.persona' doesn't exist
+ MySQL  localhost:3306 ssl  tbd3  SQL > desc personas;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rfc        | varchar(10) | NO   | PRI | NULL    |       |
+| nombre     | varchar(50) | NO   |     | NULL    |       |
+| ap_paterno | varchar(50) | NO   |     | NULL    |       |
+| ap_materno | varchar(50) | YES  |     | NULL    |       |
+| fecha_nac  | date        | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > insert into personas(nombre, ap_paterno,ap_materno,fecha_nac) value ("pepe","perez","peerz","1999-01-01");
+Query OK, 1 row affected (0.0067 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > select * from personas;
++------------+--------+------------+------------+------------+
+| rfc        | nombre | ap_paterno | ap_materno | fecha_nac  |
++------------+--------+------------+------------+------------+
+| dfgdfgdf   | luis   | rivas      | sanchez    | 2003-12-29 |
+| gohp950106 | pepe   | gonzalez   | hernandez  | 1995-01-06 |
+| pepp990101 | pepe   | perez      | peerz      | 1999-01-01 |
+| pesp021229 | pepe   | perez      | sanchez    | 2002-12-29 |
+| risl031229 | luis   | rivas      | sanchez    | 2003-12-29 |
+| sarp981212 | pedro  | sanchez    | rodriguez  | 1998-12-12 |
++------------+--------+------------+------------+------------+
+6 rows in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > insert into personas(nombre, ap_paterno,ap_materno,fecha_nac) value ("shrek","dominguez",gonzalez","2000-01-01");
+                                     ">
+                                     "> ;
+                                     "> ;
+                                     ">
+                                     "> ^C
+ MySQL  localhost:3306 ssl  tbd3  SQL > insert into personas(nombre, ap_paterno,ap_materno,fecha_nac) value ("shrek","dominguez","gonzalez","1999-01-01");
+Query OK, 1 row affected (0.0352 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > select * from personas;
++------------+--------+------------+------------+------------+
+| rfc        | nombre | ap_paterno | ap_materno | fecha_nac  |
++------------+--------+------------+------------+------------+
+| dfgdfgdf   | luis   | rivas      | sanchez    | 2003-12-29 |
+| dogs990101 | shrek  | dominguez  | gonzalez   | 1999-01-01 |
+| gohp950106 | pepe   | gonzalez   | hernandez  | 1995-01-06 |
+| pepp990101 | pepe   | perez      | peerz      | 1999-01-01 |
+| pesp021229 | pepe   | perez      | sanchez    | 2002-12-29 |
+| risl031229 | luis   | rivas      | sanchez    | 2003-12-29 |
+| sarp981212 | pedro  | sanchez    | rodriguez  | 1998-12-12 |
++------------+--------+------------+------------+------------+
+7 rows in set (0.0004 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > delete from personas where nombre = "shrek";
+Query OK, 1 row affected (0.0050 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL > select * from bitacora;
++---------------------+
+| descripcion         |
++---------------------+
+| Borrado de persona  |
+| Borrado: goha9516   |
+| Borrado: dogs990101 |
++---------------------+
+3 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  tbd3  SQL >
